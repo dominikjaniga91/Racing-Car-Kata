@@ -1,21 +1,24 @@
 package leaderbord;
 
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RaceTest {
 
+    private final int points;
+    private final Race race;
+    private final Driver driver;
+
+    public RaceTest(int points, Race race, Driver driver) {
+        this.points = points;
+        this.race = race;
+        this.driver = driver;
+    }
+
     @Test
-    public void isShouldCalculateDriverPoints() {
-        // setup
-
-        // act
-
-        // verify
-        assertEquals(25, TestData.race1.getPoints(TestData.driver1));
-        assertEquals(18, TestData.race1.getPoints(TestData.driver2));
-        assertEquals(15, TestData.race1.getPoints(TestData.driver3));
+    public void shouldCalculateDriverPoints() {
+        assertEquals(points, race.getPoints(driver));
     }
 
 }
