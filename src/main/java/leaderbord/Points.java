@@ -15,6 +15,10 @@ enum Points {
     }
 
     static int forPosition(int position) {
-        return values()[position].points;
+        return Arrays.stream(values())
+                .filter(e -> e.ordinal() == position)
+                .findFirst()
+                .map(e -> e.points)
+                .orElse(0);
     }
 }
