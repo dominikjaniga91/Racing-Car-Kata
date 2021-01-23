@@ -7,7 +7,7 @@ import java.util.Map;
 
 class Race {
 
-    private static final Integer[] POINTS = new Integer[]{25, 18, 15};
+//    private static final Integer[] POINTS = new Integer[]{25, 18, 15};
 
     private final String name;
     private final List<Driver> results;
@@ -31,7 +31,7 @@ class Race {
     }
 
     public int getPoints(Driver driver) {
-        return Race.POINTS[position(driver)];
+        return Points.forPosition(position(driver));
     }
 
     public List<Driver> getResults() {
