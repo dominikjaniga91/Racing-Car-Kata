@@ -1,6 +1,9 @@
 package leaderbord;
 
 import java.util.*;
+import java.util.function.Function;
+
+import static java.util.stream.Collectors.*;
 
 class Race implements Iterable<Driver> {
 
@@ -11,14 +14,7 @@ class Race implements Iterable<Driver> {
     public Race(String name, Driver... drivers) {
         this.name = name;
         this.results = Arrays.asList(drivers);
-        this.driverNames = new HashMap<>();
-        for (Driver driver : results) {
-            String driverName = driver.toString();
-            if (driver instanceof SelfDrivingCar) {
-                driverName = "Self Driving Car - " + driver.getCountry() + " (" + ((SelfDrivingCar) driver).getAlgorithmVersion() + ")";
-            }
-            this.driverNames.put(driver, driverName);
-        }
+        this.driverNames = results.stream().collect(toMap(Function.identity(), Driver::toString));
     }
 
     public int getPoints(Driver driver) {
