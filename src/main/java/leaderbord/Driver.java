@@ -34,4 +34,9 @@ class Driver {
         Driver other = (Driver) obj;
         return this.name.equals(other.name) && this.country.equals(other.country);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
