@@ -1,13 +1,8 @@
 package leaderbord;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-class Race {
-
-//    private static final Integer[] POINTS = new Integer[]{25, 18, 15};
+class Race implements Iterable<Driver> {
 
     private final String name;
     private final List<Driver> results;
@@ -18,7 +13,7 @@ class Race {
         this.results = Arrays.asList(drivers);
         this.driverNames = new HashMap<>();
         for (Driver driver : results) {
-            String driverName = driver.getName();
+            String driverName = driver.toString();
             if (driver instanceof SelfDrivingCar) {
                 driverName = "Self Driving Car - " + driver.getCountry() + " (" + ((SelfDrivingCar) driver).getAlgorithmVersion() + ")";
             }
@@ -26,20 +21,14 @@ class Race {
         }
     }
 
-    public int position(Driver driver) {
-        return this.results.indexOf(driver);
-    }
-
     public int getPoints(Driver driver) {
-        return Points.forPosition(position(driver));
+        int position = this.results.indexOf(driver);
+        return Points.forPosition(position);
     }
 
-    public List<Driver> getResults() {
-        return results;
-    }
-
-    public String getDriverName(Driver driver) {
-        return this.driverNames.get(driver);
+    @Override
+    public Iterator<Driver> iterator() {
+        return results.iterator();
     }
 
     @Override
