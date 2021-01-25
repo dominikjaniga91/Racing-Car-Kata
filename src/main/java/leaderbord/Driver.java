@@ -1,6 +1,6 @@
 package leaderbord;
 
-class Driver {
+class Driver implements Comparable<Driver> {
 
     private final String name;
     private final String country;
@@ -43,5 +43,10 @@ class Driver {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public int compareTo(Driver o) {
+        return Integer.compare(points, o.points);
     }
 }
