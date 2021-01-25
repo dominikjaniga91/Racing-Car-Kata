@@ -47,6 +47,6 @@ class Driver implements Comparable<Driver> {
 
     @Override
     public int compareTo(Driver o) {
-        return Integer.compare(points, o.points);
+        return Integer.compare(o.points, points);
     }
 }
