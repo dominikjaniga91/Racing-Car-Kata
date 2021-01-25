@@ -2,9 +2,8 @@ package leaderbord;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static leaderbord.TestData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,10 +28,10 @@ public class LeaderboardTest {
         // setup
 
         // act
-        List<String> result = TestData.sampleLeaderboard1.driverRankings();
+        Set<String> result = TestData.sampleLeaderboard1.driverRankings();
 
         // verify
-        assertEquals("Lewis Hamilton", result.get(0));
+        assertEquals("Lewis Hamilton", result.iterator().next());
     }
 
     @Test
@@ -44,10 +43,10 @@ public class LeaderboardTest {
         Leaderboard exEquoLeaderBoard = new Leaderboard(winDriver1, winDriver2);
 
         // act
-        List<String> rankings = exEquoLeaderBoard.driverRankings();
+        Set<String> rankings = exEquoLeaderBoard.driverRankings();
 
         // verify
-        assertEquals(Arrays.asList(driver1.getName(), driver2.getName(), driver3.getName()), rankings);
+        assertEquals(Set.of(driver1.getName(), driver2.getName(), driver3.getName()), rankings);
         // note: the order of driver1 and driver2 is JDK/platform dependent
     }
 

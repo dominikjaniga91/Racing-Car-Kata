@@ -11,34 +11,17 @@ class Leaderboard {
     }
 
     public Map<String, Integer> driverResults() {
-        Map<String, Integer> results = new HashMap<>();
+        Map<String, Integer> results = new TreeMap<>();
         for (Race race : this.races) {
             for (Driver driver : race) {
-                int points = race.getPoints(driver);
-                results.merge(driver.toString(), points, Integer::sum);
+                results.merge(driver.toString(), race.getPoints(driver), Integer::sum);
             }
         }
         return results;
     }
 
-    public List<String> driverRankings() {
+    public Set<String> driverRankings() {
         Map<String, Integer> results = driverResults();
-        List<String> resultsList = new ArrayList<>(results.keySet());
-        Collections.sort(resultsList, new DriverByPointsDescendingComparator(results));
-        return resultsList;
+        return new TreeSet<>(results.keySet());
     }
-
-    private static final class DriverByPointsDescendingComparator implements Comparator<String> {
-        private final Map<String, Integer> results;
-
-        private DriverByPointsDescendingComparator(Map<String, Integer> results) {
-            this.results = results;
-        }
-
-        @Override
-        public int compare(String driverName1, String driverName2) {
-            return -results.get(driverName1).compareTo(results.get(driverName2));
-        }
-    }
-
 }
