@@ -4,6 +4,7 @@ class Driver {
 
     private final String name;
     private final String country;
+    private int points;
 
     public Driver(String name, String country) {
         this.name = name;
@@ -16,6 +17,10 @@ class Driver {
 
     public String getCountry() {
         return country;
+    }
+
+    public void addPoints(int points) {
+        this.points += points;
     }
 
     @Override

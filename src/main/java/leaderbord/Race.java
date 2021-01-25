@@ -19,7 +19,9 @@ class Race implements Iterable<Driver> {
 
     public int getPoints(Driver driver) {
         int position = this.results.indexOf(driver);
-        return Points.forPosition(position);
+        int points = Points.forPosition(position);
+        driver.addPoints(points);
+        return points;
     }
 
     @Override
