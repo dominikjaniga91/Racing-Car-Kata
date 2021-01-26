@@ -2,9 +2,7 @@ package leaderbord;
 
 import java.util.*;
 
-import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toCollection;
-import static java.util.stream.Collectors.toMap;
 
 class Leaderboard {
 
@@ -26,7 +24,7 @@ class Leaderboard {
     }
 
     public Set<Driver> driverRankings() {
-        Map<Driver, Integer> results = driverResults();
-        return new TreeSet<>(results.keySet());
+        return races.stream().flatMap(Race::stream)
+                .collect(toCollection(TreeSet::new));
     }
 }
