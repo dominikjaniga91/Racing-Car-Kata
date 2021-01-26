@@ -14,7 +14,7 @@ public class LeaderboardTest {
 
 
     @Test
-    public void shouldReturnPlayerWithMaxPoints_afterHeWinTheRace() {
+    public void shouldReturnTheSameRanking_afterPerformTheRace() {
         //given
         Set<Driver> racers = Set.of(TestData.driver1, driver2, driver3);
         Race race = new Race("Night race", TestData.driver1, driver2, driver3);
@@ -24,13 +24,11 @@ public class LeaderboardTest {
         Map<Driver, Integer> stringIntegerMap = leaderboard.driverResults();
         Set<Driver> rankings = leaderboard.driverRankings();
 
-        for (var driver : stringIntegerMap.entrySet()) {
-            System.out.println("name: " + driver.getKey() + " points " + driver.getValue());
-        }
-
         //then
         Assert.assertEquals(rankings, racers);
     }
+
+
     @Test
     public void itShouldSumThePoints() {
         // setup
