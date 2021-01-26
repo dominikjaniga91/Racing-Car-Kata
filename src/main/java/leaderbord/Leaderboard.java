@@ -3,6 +3,7 @@ package leaderbord;
 import java.util.*;
 
 import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toMap;
 
 class Leaderboard {
@@ -14,8 +15,14 @@ class Leaderboard {
     }
 
     public Map<Driver, Integer> driverResults() {
-        return races.stream().flatMap(Race::stream)
-                .collect(toMap(identity(), Driver::getPoints));
+
+        Map<Driver, Integer> results = new HashMap<>();
+        for (Race race : this.races) {
+            for (Driver driver : race) {
+                results.merge(driver, race.getPoints(driver), Integer::sum);
+            }
+        }
+        return results;
     }
 
     public Set<Driver> driverRankings() {
