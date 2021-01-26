@@ -2,6 +2,7 @@ package leaderbord;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
 
@@ -27,6 +28,10 @@ class Race implements Iterable<Driver> {
     @Override
     public Iterator<Driver> iterator() {
         return results.iterator();
+    }
+
+    Stream<Driver> stream() {
+        return Collections.unmodifiableList(results).stream();
     }
 
     @Override
