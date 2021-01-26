@@ -32,7 +32,6 @@ public class LeaderboardTest {
     @Test
     public void shouldReturnTheWinner_afterDriverWontTheRace() {
         //given
-        Driver winner = driver1;
         Race race = new Race("Night race", driver1, driver2, driver3);
         Leaderboard leaderboard = new Leaderboard(race);
 
