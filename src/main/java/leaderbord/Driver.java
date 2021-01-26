@@ -11,6 +11,10 @@ class Driver implements Comparable<Driver> {
         this.country = country;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
     public String getName() {
         return name;
     }
