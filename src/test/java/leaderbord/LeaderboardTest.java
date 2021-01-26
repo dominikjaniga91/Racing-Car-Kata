@@ -30,6 +30,23 @@ public class LeaderboardTest {
 
 
     @Test
+    public void shouldReturnTheWinner_afterDriverWontTheRace() {
+        //given
+        Driver winner = driver1;
+        Race race = new Race("Night race", driver1, driver2, driver3);
+        Leaderboard leaderboard = new Leaderboard(race);
+
+        //when
+        leaderboard.driverResults();
+        Set<Driver> rankings = leaderboard.driverRankings();
+        System.out.println(rankings);
+
+        //then
+        Assert.assertEquals(driver1, rankings.iterator().next());
+    }
+
+
+    @Test
     public void itShouldSumThePoints() {
         // setup
         Driver winner = new Driver("Lewis Hamilton", "UK");
