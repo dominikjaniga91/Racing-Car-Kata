@@ -10,18 +10,18 @@ class Leaderboard {
         this.races = Arrays.asList(races);
     }
 
-    public Map<String, Integer> driverResults() {
-        Map<String, Integer> results = new TreeMap<>();
+    public Map<Driver, Integer> driverResults() {
+        Map<Driver, Integer> results = new TreeMap<>();
         for (Race race : this.races) {
             for (Driver driver : race) {
-                results.merge(driver.toString(), race.getPoints(driver), Integer::sum);
+                results.merge(driver, race.getPoints(driver), Integer::sum);
             }
         }
         return results;
     }
 
-    public Set<String> driverRankings() {
-        Map<String, Integer> results = driverResults();
+    public Set<Driver> driverRankings() {
+        Map<Driver, Integer> results = driverResults();
         return new TreeSet<>(results.keySet());
     }
 }

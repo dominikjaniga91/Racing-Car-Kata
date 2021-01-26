@@ -1,6 +1,7 @@
 package leaderbord;
 
 import org.junit.jupiter.api.Test;
+import org.testng.Assert;
 
 import java.util.Map;
 import java.util.Set;
@@ -11,27 +12,47 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LeaderboardTest {
 
+
+    @Test
+    public void shouldReturnPlayerWithMaxPoints_afterHeWinTheRace() {
+        //given
+        Set<Driver> racers = Set.of(TestData.driver1, driver2, driver3);
+        Race race = new Race("Night race", TestData.driver1, driver2, driver3);
+        Leaderboard leaderboard = new Leaderboard(race);
+
+        //when
+        Map<Driver, Integer> stringIntegerMap = leaderboard.driverResults();
+        Set<Driver> rankings = leaderboard.driverRankings();
+
+        for (var driver : stringIntegerMap.entrySet()) {
+            System.out.println("name: " + driver.getKey() + " points " + driver.getValue());
+        }
+
+        //then
+        Assert.assertEquals(rankings, racers);
+    }
     @Test
     public void itShouldSumThePoints() {
         // setup
-
+        Driver winner = new Driver("Lewis Hamilton", "UK");
         // act
-        Map<String, Integer> results = TestData.sampleLeaderboard1.driverResults();
+        Map<Driver, Integer> results = TestData.sampleLeaderboard1.driverResults();
 
         // verify
-        assertTrue(results.containsKey("Lewis Hamilton"), "results " + results);
-        assertEquals(18 + 18 + 25, (int) results.get("Lewis Hamilton"));
+        assertTrue(results.containsKey(winner), "results " + results);
+        assertEquals(18 + 18 + 25, (int) results.get(winner));
     }
 
     @Test
     public void isShouldFindTheWinner() {
         // setup
+        Driver winner = new Driver("Lewis Hamilton", "UK");
 
         // act
-        Set<String> result = TestData.sampleLeaderboard1.driverRankings();
+        Set<Driver> result = TestData.sampleLeaderboard1.driverRankings();
 
         // verify
-        assertEquals("Lewis Hamilton", result.iterator().next());
+        assertEquals(winner, result.iterator().next());
     }
 
     @Test
@@ -43,10 +64,10 @@ public class LeaderboardTest {
         Leaderboard exEquoLeaderBoard = new Leaderboard(winDriver1, winDriver2);
 
         // act
-        Set<String> rankings = exEquoLeaderBoard.driverRankings();
+        Set<Driver> rankings = exEquoLeaderBoard.driverRankings();
 
         // verify
-        assertEquals(Set.of(driver1.getName(), driver2.getName(), driver3.getName()), rankings);
+        assertEquals(Set.of(driver1, driver2, driver3), rankings);
         // note: the order of driver1 and driver2 is JDK/platform dependent
     }
 
