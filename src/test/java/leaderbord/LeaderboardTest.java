@@ -17,11 +17,10 @@ public class LeaderboardTest {
     public void shouldReturnTheSameRanking_afterPerformTheRace() {
         //given
         Set<Driver> racers = Set.of(TestData.driver1, driver2, driver3);
-        Race race = new Race("Night race", TestData.driver1, driver2, driver3);
+        Race race = new Race("Night race", driver1, driver2, driver3);
         Leaderboard leaderboard = new Leaderboard(race);
 
         //when
-        Map<Driver, Integer> stringIntegerMap = leaderboard.driverResults();
         Set<Driver> rankings = leaderboard.driverRankings();
 
         //then
@@ -38,7 +37,7 @@ public class LeaderboardTest {
         //when
         leaderboard.driverResults();
         Set<Driver> rankings = leaderboard.driverRankings();
-        System.out.println(rankings);
+        System.out.println(" ranking is " + rankings);
 
         //then
         Assert.assertEquals(driver1, rankings.iterator().next());
@@ -50,7 +49,7 @@ public class LeaderboardTest {
         // setup
         Driver winner = new Driver("Lewis Hamilton", "UK");
         // act
-        Map<Driver, Integer> results = TestData.sampleLeaderboard1.driverResults();
+        Map<Driver, Integer> results = sampleLeaderboard1.driverResults();
 
         // verify
         assertTrue(results.containsKey(winner), "results " + results);
@@ -63,7 +62,7 @@ public class LeaderboardTest {
         Driver winner = new Driver("Lewis Hamilton", "UK");
 
         // act
-        Set<Driver> result = TestData.sampleLeaderboard1.driverRankings();
+        Set<Driver> result = sampleLeaderboard1.driverRankings();
 
         // verify
         assertEquals(winner, result.iterator().next());
@@ -82,7 +81,6 @@ public class LeaderboardTest {
 
         // verify
         assertEquals(Set.of(driver1, driver2, driver3), rankings);
-        // note: the order of driver1 and driver2 is JDK/platform dependent
     }
 
 }

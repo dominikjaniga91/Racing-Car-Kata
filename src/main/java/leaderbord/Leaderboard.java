@@ -2,6 +2,8 @@ package leaderbord;
 
 import java.util.*;
 
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.reverseOrder;
 import static java.util.stream.Collectors.toCollection;
 
 class Leaderboard {
@@ -25,6 +27,8 @@ class Leaderboard {
 
     public Set<Driver> driverRankings() {
         return races.stream().flatMap(Race::stream)
-                .collect(toCollection(TreeSet::new));
+                .sorted(comparing(Driver::getPoints, reverseOrder())
+                        .thenComparing(Driver::getName))
+                .collect(toCollection(LinkedHashSet::new));
     }
 }
