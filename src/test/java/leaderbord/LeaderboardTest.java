@@ -35,7 +35,6 @@ public class LeaderboardTest {
         Leaderboard leaderboard = new Leaderboard(race);
 
         //when
-        leaderboard.driverResults();
         Set<Driver> rankings = leaderboard.driverRankings();
         System.out.println(" ranking is " + rankings);
 
@@ -47,13 +46,25 @@ public class LeaderboardTest {
     @Test
     public void itShouldSumThePoints() {
         // setup
+        Driver driver1 = new Driver("Nico Rosberg", "DE");
+        Driver driver2 = new Driver("Lewis Hamilton", "UK");
+        Driver driver3 = new Driver("Sebastian Vettel", "DE");
+        Race race1 = new Race("Australian Grand Prix", driver1, driver2, driver3);
+        Race race2 = new Race("Malaysian Grand Prix", driver3, driver2, driver1);
+        Race race3 = new Race("Chinese Grand Prix", driver2, driver1, driver3);
+        Leaderboard leaderboard = new Leaderboard(race1, race2, race3);
         Driver winner = new Driver("Lewis Hamilton", "UK");
+        int expected = 61;
+
         // act
-        Map<Driver, Integer> results = sampleLeaderboard1.driverResults();
+        Set<Driver> results = leaderboard.driverRankings();
+        int actual = results.iterator().next().getPoints();
+        Driver driver = results.iterator().next();
+        System.out.println(" driver " + driver + " points " + driver.getPoints());
 
         // verify
-        assertTrue(results.containsKey(winner), "results " + results);
-        assertEquals(18 + 18 + 25, (int) results.get(winner));
+        assertTrue(results.contains(winner), "results " + results);
+        assertEquals(actual, expected);
     }
 
     @Test
