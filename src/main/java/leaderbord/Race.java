@@ -1,28 +1,30 @@
 package leaderbord;
 
-import java.util.*;
-import java.util.function.Function;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.*;
 
 class Race implements Iterable<Driver> {
 
     private final String name;
     private final List<Driver> results;
-    private final Map<Driver, String> driverNames;
 
     public Race(String name, Driver... drivers) {
         this.name = name;
         this.results = Arrays.asList(drivers);
-        this.driverNames = results.stream().collect(toMap(Function.identity(), Driver::toString));
+
     }
 
-    public int getPoints(Driver driver) {
+    int getPoints(Driver driver) {
         int position = this.results.indexOf(driver);
         int points = Points.forPosition(position);
         driver.addPoints(points);
         return points;
+    }
+
+    void run() {
+        results.forEach(this::getPoints);
     }
 
     @Override
@@ -31,7 +33,7 @@ class Race implements Iterable<Driver> {
     }
 
     Stream<Driver> stream() {
-        return Collections.unmodifiableList(results).stream();
+        return results.stream();
     }
 
     @Override
